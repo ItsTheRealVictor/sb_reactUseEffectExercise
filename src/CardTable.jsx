@@ -5,18 +5,21 @@ import axios from "axios"
 export const CardTable = () => {
     const [card, setCard] = useState("")
 
-    async function getData() {
-        const res = await axios.get(
-            "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
-        )
-        return res.data
-    }
-    console.log(getData())
+    useEffect(() => {
+        async function getData() {
+            let res = await axios.get(
+                "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+            )
+            setCard(res.data)
+        }
+        getData()
+    }, [setCard])
+
     return (
         <div>
             <h1>I am the card table</h1>
-            <h4>the response is {getData()}</h4>
-            <Card face={"10H"} />
+            <h4></h4>
+            <Card card={card} />
         </div>
     )
 }
